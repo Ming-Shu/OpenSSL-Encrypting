@@ -6,7 +6,9 @@ file:input.txt
 password:1234
 
 The encrypting command:
+
     openssl aes-256-cbc -nosalt -e -p -k 1234 -in input.txt -out aaa.bin
     
 Compile command:
+
     gcc decrypted.c -lcrypto -o decrypted   
