@@ -69,7 +69,7 @@ int decryptFile(const char *inputFile, const char *outputFile, const unsigned ch
 
 int main()
 {
-    const char *encryptedFile = "aaa.bin";//"encrypted.xml";
+    const char *encryptedFile = "aaa.bin";
     const char *decryptedFile = "decrypted.txt";
     unsigned char key[EVP_MAX_KEY_LENGTH], iv[EVP_MAX_IV_LENGTH];
     const char *password = "1234";
