@@ -8,7 +8,7 @@ decrypted.o:$(OBJ) encrypted
         gcc -c $(OBJ)
 .PHONY: encrypted
 encrypted:
-        openssl aes-256-cbc -nosalt -e -p -k 1234 -in sysdef.xml -out encrypted.xml
+        openssl aes-256-cbc -nosalt -e -p -k 1234 -in input.txt -out aaa.bin
 .PHONY: clean
 clean:
         rm -f decrypted.o
