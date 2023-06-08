@@ -12,3 +12,5 @@ The encrypting command:
 Compile command:
 
     gcc decrypted.c -lcrypto -o decrypted   
+
+The above use Makefile complete it too.
