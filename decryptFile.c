@@ -26,34 +26,33 @@ int decryptFile(const char *inputFile, const char *outputFile) {
     FILE *inFile = fopen(inputFile, "rb");
     FILE *outFile = fopen(outputFile, "wb");
     int bytesRead, bytesWritten, finalBytesWritten;
-
-	  int BlockSize = EVP_CIPHER_block_size(EVP_aes_256_cbc());
+    int BlockSize = EVP_CIPHER_block_size(EVP_aes_256_cbc());//Get the block size of AES-256-CBC
     unsigned char inBuffer[BUFFER_SIZE];
     unsigned char outBuffer[BUFFER_SIZE+BlockSize];
-
-   	generates_key_iv(key,iv,"1234");
-
+	
+    generates_key_iv(key,iv,"1234");
+	
     if (inFile == NULL || outFile == NULL) {
-        perror("Failed to open file");
-        return 1;
+	perror("Failed to open file");
+	return 1;
     }
-
+	
     EVP_CIPHER_CTX *ctx = EVP_CIPHER_CTX_new();
     EVP_DecryptInit_ex(ctx, EVP_aes_256_cbc(), NULL, key, iv);
-	  EVP_CIPHER_CTX_set_padding(ctx, EVP_PADDING_PKCS7);
-
+    EVP_CIPHER_CTX_set_padding(ctx, EVP_PADDING_PKCS7);
+	
     while ((bytesRead = fread(inBuffer, sizeof(unsigned char), BUFFER_SIZE , inFile)) > 0) {
-        EVP_DecryptUpdate(ctx, outBuffer, &bytesWritten, inBuffer, bytesRead);
-        fwrite(outBuffer, sizeof(unsigned char), bytesWritten, outFile);
+	EVP_DecryptUpdate(ctx, outBuffer, &bytesWritten, inBuffer, bytesRead);
+	fwrite(outBuffer, sizeof(unsigned char), bytesWritten, outFile);
     }
-
+	
     EVP_DecryptFinal_ex(ctx, outBuffer, &finalBytesWritten);
     fwrite(outBuffer,sizeof(unsigned char), finalBytesWritten, outFile);
-    EVP_CIPHER_CTX_free(ctx);
-	  EVP_cleanup();
+    EVP_CIPHER_CTX_free(ctx);// Free resources and clean up OpenSSL library
+    EVP_cleanup();
     fclose(inFile);
     fclose(outFile);
-
+	
     return 0;
 }
 
