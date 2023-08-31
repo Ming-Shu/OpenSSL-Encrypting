@@ -1,8 +1,7 @@
 #include <openssl/evp.h>
 #include <stdio.h>
 #include <string.h>
-#define BUFFER_SIZE 4096
-
+#include "decrypted.h"
 int generates_key_iv(unsigned char* key,unsigned char *iv,const unsigned char *password)
 {
      const EVP_CIPHER *cipher;
